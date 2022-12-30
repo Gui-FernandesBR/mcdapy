@@ -1,0 +1,78 @@
+{
+    "n_rows": 3,
+    "n_cols": 4,
+    "method": "PATTERN",
+    "matrix": [
+        [
+            6.0,
+            2.0,
+            4.0,
+            0.25
+        ],
+        [
+            3.0,
+            3.0,
+            3.0,
+            0.25
+        ],
+        [
+            1.0,
+            5.0,
+            3.0,
+            0.5
+        ]
+    ],
+    "normalized_matrix": [
+        [
+            0.6,
+            0.2,
+            0.4,
+            0.25
+        ],
+        [
+            0.3,
+            0.3,
+            0.3,
+            0.25
+        ],
+        [
+            0.1,
+            0.5,
+            0.3,
+            0.5
+        ]
+    ],
+    "weights": [
+        0.2,
+        0.4,
+        0.1,
+        0.3
+    ],
+    "normalized_weights": [
+        0.2,
+        0.4,
+        0.1,
+        0.3
+    ],
+    "criteria": [
+        "Crit. 1",
+        "Crit. 2",
+        "Crit. 3",
+        "Crit. 4"
+    ],
+    "alternatives": [
+        "Alter. 1",
+        "Alter. 2",
+        "Alter. 3"
+    ],
+    "ranking": [
+        2,
+        0,
+        1
+    ],
+    "ranking_named": [
+        "Alter. 3",
+        "Alter. 1",
+        "Alter. 2"
+    ]
+}
