@@ -246,7 +246,9 @@ class Pattern:
         """
         for i in range(self.n_alternatives):
             for j in range(self.n_criteria):
-                weighted_matrix[i, j] = self.matrix[i, j] * self.weights[j]
+                weighted_matrix[i, j] = (
+                    self.normalized_matrix[i, j] * self.normalized_weights[j]
+                )
         self.weighted_matrix = weighted_matrix
         return None
 
@@ -261,13 +263,17 @@ class Pattern:
         None
         """
 
+        self.normalized_matrix = self.matrix.copy()
+
         for i in range(self.n_criteria):
             if np.sum(self.matrix[:, i]) - 1 < 1e-10:
                 # This column is already normalized
                 pass
             else:
                 # Normalize this specific column
-                self.matrix[:, i] = self.matrix[:, i] / np.sum(self.matrix[:, i])
+                self.normalized_matrix[:, i] = self.matrix[:, i] / np.sum(
+                    self.matrix[:, i]
+                )
 
         return None
 
@@ -281,12 +287,14 @@ class Pattern:
         -------
         None
         """
+
+        self.normalized_weights = self.weights.copy()
         if np.sum(self.weights) - 1 < 1e-10:
             # The weights are already summing 1
             pass
         else:
             # Normalize the weights
-            self.weights = self.weights / np.sum(self.weights)
+            self.normalized_weights = self.weights / np.sum(self.weights)
 
         return None
 
@@ -309,12 +317,12 @@ class Pattern:
 
         return None
 
-    def plot_matrix(self) -> None:
+    def plot_matrix(self, return_fig=False):
         # Hey, I will document this later!
 
         # Set the labels
-        labels = ["A{}".format(i) for i in range(self.n_alternatives)]
-        criteria = ["C{}".format(i) for i in range(self.n_criteria)]
+        labels = [i for i in self.alternatives]
+        criteria = [i for i in self.criteria]
 
         # Set the colors
         colors = plt.cm.Blues(np.linspace(0, 0.5, self.n_alternatives))
@@ -334,7 +342,7 @@ class Pattern:
         plt.setp(ax.get_xticklabels(), rotation=45, ha="left", rotation_mode="anchor")
 
         # Set the title
-        ax.set_title("Normalized weighted_matrix")
+        ax.set_title("Normalized weighted matrix")
 
         # Set the values
         for i in range(self.n_alternatives):
@@ -348,20 +356,25 @@ class Pattern:
                     color="black",
                 )
 
-        # Show the plot
-        plt.show()
+        if not return_fig:
+            # Show the plot
+            plt.show()
+            return None
 
-        return None
+        return fig, ax
 
-    def plot_rank(self) -> None:
+    def plot_rank(self, return_fig=False) -> None:
         # Hey, I will document this later!
 
         # Set the colors
         colors = plt.cm.Blues(np.linspace(0.3, 0.9, self.n_alternatives))
 
         # Sort the labels and the pertinence index
-        labels = [labels[i] for i in self.ranking]
-        pertinence_index = [pertinence_index[i] for i in self.ranking]
+        rank = self.ranking.tolist()
+        rank.reverse()
+        labels = [i for i in self.ranking_named]
+        labels.reverse()
+        pertinence_index = [self.pertinence_index[i] for i in rank]
 
         # Plot the ranking
         fig, ax = plt.subplots()
@@ -374,7 +387,8 @@ class Pattern:
         for i, v in enumerate(pertinence_index):
             ax.text(v, i, "{:.2f}".format(v), va="center", color="black", ha="right")
 
-        # Show the plot
-        plt.show()
+        if not return_fig:
+            # Show the plot
+            plt.show()
 
-        return None
+        return fig, ax
