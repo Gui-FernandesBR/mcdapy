@@ -390,5 +390,6 @@ class Pattern:
         if not return_fig:
             # Show the plot
             plt.show()
+            return None
 
         return fig, ax
