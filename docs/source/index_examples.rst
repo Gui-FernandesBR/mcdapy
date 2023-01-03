@@ -2,11 +2,13 @@
 Examples Showcases
 ------------------
 
-You know, I'm just testing this out. I'm not sure if I'll keep it.
+This section contains some examples for the ``mcdapy`` library. The examples are
+divided into two categories: 
 
 .. toctree:: 
-   :maxdepth: 2
+   :maxdepth: 1
 
+   Getting Started <methods.ipynb>
    Monte Carlo Simulation <monte_carlo.ipynb>
 
 ..

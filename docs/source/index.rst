@@ -1,21 +1,15 @@
-Welcome to our docs!
---------------------
+Welcome !
+---------
 
-.. Quick access the main sections by clicking on the links below:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   Code reference <reference/index>
-   Tutorials <examples>
+   Code reference <reference/index.rst>
+   Tutorials <index_examples.rst>
    
 ..
 
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
-
-
 .. mdinclude:: ../../README.md
-
+   :start-line: 2
