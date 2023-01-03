@@ -1,4 +1,9 @@
-# mcdapy
+# MCDPAPy
+
+<!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Gui-FernandesBR/mcdapy/blob/master/docs/) -->
+<!-- [![PyPI]()](https://pypi.org/project/mcdapy/) -->
+[![Documentation Status](https://readthedocs.org/projects/mcdapy/badge/?version=latest)](https://mcdapy.readthedocs.io/en/latest/?badge=latest)
+
 
 A simple application for **Multiple-criteria decision analysis (MCDA)** in python.
 
@@ -8,18 +13,24 @@ Two methods are currently implemented: PATTERN and [ELECTRE](https://doi.org/10.
 
 The usage of the application is very simple, just enter the data and the method you want to use, and the application will return the results.
 
-![demo](examples/g1.gif)
+<img src="https://raw.githubusercontent.com/Gui-FernandesBR/mcdapy/master/docs/source/static/g1.gif" alt="Demo" width="500"/>
 
 
-# Installation
+## Installation
 
-```bash
-pip install mcdapy
+In the terminal, run the following command:
+
+```shell
+pip install git+https://github.com/Gui-FernandesBR/mcdapy.git
 ```
 
-# How to use
+The package will be installed from the master branch of mcdapy project directly
+in your python environment.
+It is recommended to use a virtual environment.
 
-### Python script
+## How to use
+
+As a python script:
 
 ```python
 import mcdapy
@@ -27,19 +38,21 @@ import mcdapy
 app = mcdapy.App()
 ```
 
-### Terminal
+On your terminal:
 
 ```shell
 python cli.py
 ```
 
-### Executable
+As an executable:
 
-```shell 
+```shell
 python pyinstaller --onefile cli.py --name mcdapy
 ```
 
-# Directory structure
+## Directory structure
+
+The github repository is organized as follows:
 
 ```shell
 mcdapy
@@ -61,8 +74,8 @@ mcdapy
 ├── setup.py
 ```
 
-# Contributing
+## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome at mcdapy. For major changes, please open an issue first to discuss what you would like to change.
 
 You can also raise an issue if you find any bug or have any suggestion.

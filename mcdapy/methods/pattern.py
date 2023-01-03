@@ -36,17 +36,6 @@ class Pattern:
     Pattern.rankings : np.array
         The array of the rankings of the alternatives.
 
-    Public Methods
-    -------
-    Pattern.solve():
-        Run the PATTERN method.
-    Pattern.print_rankings():
-        Print the rankings of the alternatives.
-    Pattern.plot_rankings():
-        Plot the rankings of the alternatives.
-    Pattern.plot_matrix():
-        Plot the matrix of the alternatives and criteria.
-
     Example
     -------
     >>> import numpy as np
