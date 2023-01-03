@@ -1,4 +1,9 @@
-# mcdapy
+# MCDPAPy
+
+<!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Gui-FernandesBR/mcdapy/blob/master/docs/) -->
+<!-- [![PyPI]()](https://pypi.org/project/mcdapy/) -->
+[![Documentation Status](https://readthedocs.org/projects/mcdapy/badge/?version=latest)](https://mcdapy.readthedocs.io/en/latest/?badge=latest)
+
 
 A simple application for **Multiple-criteria decision analysis (MCDA)** in python.
 
@@ -8,7 +13,8 @@ Two methods are currently implemented: PATTERN and [ELECTRE](https://doi.org/10.
 
 The usage of the application is very simple, just enter the data and the method you want to use, and the application will return the results.
 
-![demo](https://raw.githubusercontent.com/Gui-FernandesBR/mcdapy/master/docs/source/static/g1.gif)
+<img src="https://raw.githubusercontent.com/Gui-FernandesBR/mcdapy/master/docs/source/static/g1.gif" alt="Demo" width="500"/>
+
 
 ## Installation
 
