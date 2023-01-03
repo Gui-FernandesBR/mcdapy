@@ -20,15 +20,16 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
     "sphinx.ext.inheritance_diagram",
+    "sphinx.ext.autosectionlabel",
     "sphinx_copybutton",
     "sphinx-favicon",
     "sphinx_last_updated_by_git",
     "m2r2",
     "nbsphinx",
+    "IPython.sphinxext.ipython_console_highlighting",
 ]
 
-# templates_path = ["_templates"]
-exclude_patterns = ["_build", "**.ipynb_checkpoints", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
 napoleon_numpy_docstring = True
 nbsphinx_execute = "never"
 
@@ -37,10 +38,13 @@ nbsphinx_execute = "never"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "furo"
+html_title = "Documentation"
 html_static_path = ["static"]
 html_use_modindex = True
 html_file_suffix = ".html"
 htmlhelp_basename = "mcdapy"
+# pygments_style = "sas"
+pygments_dark_style = "rrt"
 favicons = [
     {
         "sizes": "16x16",
@@ -62,14 +66,6 @@ html_theme_options = {
     "source_repository": "https://github.com/Gui-FernandesBR/mcdapy",
     "source_branch": "master",
     "source_directory": "docs/source/",
-    "**": [
-        "sidebar/scroll-start.html",
-        "sidebar/brand.html",
-        "sidebar/search.html",
-        "sidebar/navigation.html",
-        "sidebar/ethical-ads.html",
-        "sidebar/scroll-end.html",
-    ],
     "footer_icons": [
         {
             "name": "GitHub",
@@ -83,5 +79,3 @@ html_theme_options = {
         },
     ],
 }
-# pygments_style = "sphinx"
-# pygments_dark_style = "monokai"
