@@ -4,3 +4,4 @@ furo>=2022.12.7
 sphinx-copybutton>=0.5.1
 sphinx-favicon>=0.2
 sphinx-last-updated-by-git>=0.3.4
+IPython>=8.7.0

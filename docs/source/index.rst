@@ -1,6 +1,5 @@
-Welcome !
----------
 
+.. mdinclude:: ../../README.md
 
 .. toctree::
    :maxdepth: 1
@@ -10,6 +9,3 @@ Welcome !
    Tutorials <index_examples.rst>
    
 ..
-
-.. mdinclude:: ../../README.md
-   :start-line: 2

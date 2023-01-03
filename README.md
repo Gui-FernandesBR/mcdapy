@@ -13,7 +13,7 @@ Two methods are currently implemented: PATTERN and [ELECTRE](https://doi.org/10.
 
 The usage of the application is very simple, just enter the data and the method you want to use, and the application will return the results.
 
-<img src="https://raw.githubusercontent.com/Gui-FernandesBR/mcdapy/master/docs/source/static/g1.gif" alt="Demo" width="500"/>
+<p style="text-align:center;"><img src="https://raw.githubusercontent.com/Gui-FernandesBR/mcdapy/master/docs/source/static/g1.gif" alt="Demo" width="500"/>
 
 
 ## Installation
