@@ -23,7 +23,7 @@ setuptools.setup(
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    python_requires=">=3.7",
+    python_requires=">=3.3",
     install_requires=required,
     install_lib="mcdapy",
 )
