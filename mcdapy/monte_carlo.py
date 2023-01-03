@@ -5,7 +5,6 @@ import copy
 
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import pearsonr
 
 from .methods import Pattern
 
@@ -210,6 +209,12 @@ class MonteCarlo:
                     self.matrix_sets[i][col // n_cols][col % n_cols]
                     for i in range(self.n)
                 ]
+                try:
+                    from scipy.stats import pearsonr
+                except ImportError:
+                    raise ImportError(
+                        "Please install scipy to use the confusion matrix feature"
+                    ) 
                 confusion_matrix[row][col] = pearsonr(aij1, aij2)[0]
 
         self.confusion_matrix_cells = confusion_matrix
