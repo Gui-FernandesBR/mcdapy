@@ -11,3 +11,4 @@ the Wikipedia article on the subject.
 
 .. automodule:: mcdapy.monte_carlo
    :members:
+

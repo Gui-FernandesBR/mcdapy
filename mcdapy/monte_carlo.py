@@ -10,7 +10,124 @@ from .methods import Pattern
 
 
 class MonteCarlo:
+    """Class for the Monte Carlo simulation.
+
+    Parameters
+    ----------
+    input_dictionary : dict
+        Dictionary containing the input data for the Monte Carlo simulation.
+    n : int
+        Number of iterations for the Monte Carlo simulation.
+    method : str, optional
+        The method of calculating the best decision, by default "PATTERN".
+        Options are "PATTERN" and "ELECTRE" (not implemented yet).
+
+    Returns
+    -------
+    None
+
+    Attributes
+    ----------
+    input_dictionary : dict
+        Dictionary containing the input data for the Monte Carlo simulation.
+
+        Example
+        -------
+        >>> analysis_dict = {
+        >>>    "alternatives": {
+        >>>        "A": {
+        >>>            "C1": (6.00, 1.00, "normal"),
+        >>>            "C2": (2.00, 0.50, "normal"),
+        >>>            "C3": (4.00, 0.12, "normal"),
+        >>>            "C4": (0.25, 0.02, "uniform"),
+        >>>        },
+        >>>        "B": {
+        >>>            "C1": (3.00, 0.10, "normal"),
+        >>>            "C2": (3.00, 0.50, "normal"),
+        >>>            "C3": (3.00, 0.01, "normal"),
+        >>>            "C4": (0.25, 0.01, "uniform"),
+        >>>        },
+        >>>        "C": {
+        >>>            "C1": (1.0, 0.01, "normal"),
+        >>>            "C2": (5.0, 0.50, "normal"),
+        >>>            "C3": (3.0, 0.07, "normal"),
+        >>>            "C4": (0.5, 0.01, "uniform"),
+        >>>        },
+        >>>    },
+        >>>    "weights": [
+        >>>        (0.2, 0.01, "uniform"),
+        >>>        (0.4, 0.05, "normal"),
+        >>>        (0.1, 0.01, "normal"),
+        >>>        (0.3, 0.01, "normal"),
+        >>>    ],
+        >>> }
+
+    method : str
+        The method of calculating the best decision.
+    n : int
+        Number of iterations for the Monte Carlo simulation.
+    distribution_map : dict
+        Dictionary containing the distribution functions from numpy.random.
+    alternatives : list
+        List containing the alternatives names.
+    criteria : list
+        List containing the criteria names.
+    weights : list
+        List containing the weights for each criteria.
+    weight_sets : list
+        List containing the weight sets for each iteration.
+    matrix_sets : list
+        List containing the matrix sets for each iteration.
+    normalized_matrix_sets : list
+        List containing the normalized matrix sets for each iteration.
+    """
+
     def __init__(self, input_dictionary: dict, n: int, method: str = "PATTERN") -> None:
+        """Initialize the MonteCarlo class.
+
+        Parameters
+        ----------
+        input_dictionary : dict
+            Dictionary containing the input data for the Monte Carlo simulation.
+            Example:
+            >>> analysis_dict = {
+            >>>    "alternatives": {
+            >>>        "A": {
+            >>>            "C1": (6.00, 1.00, "normal"),
+            >>>            "C2": (2.00, 0.50, "normal"),
+            >>>            "C3": (4.00, 0.12, "normal"),
+            >>>            "C4": (0.25, 0.02, "uniform"),
+            >>>        },
+            >>>        "B": {
+            >>>            "C1": (3.00, 0.10, "normal"),
+            >>>            "C2": (3.00, 0.50, "normal"),
+            >>>            "C3": (3.00, 0.01, "normal"),
+            >>>            "C4": (0.25, 0.01, "uniform"),
+            >>>        },
+            >>>        "C": {
+            >>>            "C1": (1.0, 0.01, "normal"),
+            >>>            "C2": (5.0, 0.50, "normal"),
+            >>>            "C3": (3.0, 0.07, "normal"),
+            >>>            "C4": (0.5, 0.01, "uniform"),
+            >>>        },
+            >>>    },
+            >>>    "weights": [
+            >>>        (0.2, 0.01, "uniform"),
+            >>>        (0.4, 0.05, "normal"),
+            >>>        (0.1, 0.01, "normal"),
+            >>>        (0.3, 0.01, "normal"),
+            >>>    ],
+            >>> }
+        n : int
+            Number of iterations for the Monte Carlo simulation.
+        method : str, optional
+            The method of calculating the best decision, by default "PATTERN".
+            Options are "PATTERN" and "ELECTRE" (not implemented yet).
+
+        Returns
+        -------
+        None
+        """
         self.input_dictionary = input_dictionary
         self.method = method
         self.n = n
@@ -144,6 +261,14 @@ class MonteCarlo:
         return None
 
     def run(self) -> None:
+        """Runs the simulation and stores the results into a dictionaries.
+        It basically creates a loop that runs the simulation for each set of
+        weights and matrices and stores the results in a dictionary.
+
+        Returns
+        -------
+        None
+        """
         for i in range(self.n):
             # Get a set of values to simulate
 
@@ -153,8 +278,8 @@ class MonteCarlo:
             # Run the simulation
 
             sim = Pattern(
-                alternatives=self.alternatives,
-                criteria=self.criteria,
+                alternatives=tuple(self.alternatives),
+                criteria=tuple(self.criteria),
                 matrix=sim_matrix,
                 weights=sim_weights,
             )
@@ -168,9 +293,21 @@ class MonteCarlo:
         return None
 
     def all_results(self) -> tuple:
+        """Returns the main results of the simulation in a tuple of dictionaries.
+
+        Returns
+        -------
+        tuple
+            A tuple of dictionaries containing the results of the simulation.
+            The three elements of the tuple are:
+            1. The pertinence index of each alternative
+            2. The weight sets used in the simulation
+            3. The matrix sets used in the simulation
+
+        """
         return self.pertinence_index, self.weight_sets, self.matrix_sets
 
-    def find_ranking(self) -> None:
+    def __find_ranking(self) -> None:
 
         for i in range(self.n):
             # Find the ranking of each alternative at this simulation
@@ -187,7 +324,8 @@ class MonteCarlo:
 
         return None
 
-    def find_confusion_matrix(self) -> None:
+    def __find_confusion_matrix(self) -> None:
+
         # Confusion Matrix of each pair of aij element in the matrix
         # Each cell of the confusion matrix is going to be the person correlation between
         # the two aij elements of the matrix
@@ -214,7 +352,7 @@ class MonteCarlo:
                 except ImportError:
                     raise ImportError(
                         "Please install scipy to use the confusion matrix feature"
-                    ) 
+                    )
                 confusion_matrix[row][col] = pearsonr(aij1, aij2)[0]
 
         self.confusion_matrix_cells = confusion_matrix
@@ -223,7 +361,14 @@ class MonteCarlo:
         return None
 
     def all_plots(self) -> None:
+        """Prints out all the available plots by calling the corresponding
+        functions. To call each plot individually, use the corresponding
+        function.
 
+        Returns
+        -------
+        None
+        """
         print("Plotting results...")
         self.plot_pertinence_index()
         self.plot_ranking_distributions()
@@ -233,13 +378,19 @@ class MonteCarlo:
         return None
 
     def plot_pertinence_index(self) -> None:
-        # Plot the distribution of pertinence index of each alternative
+        """Plot the distribution of pertinence index of each alternative as a
+        histogram.
+
+        Returns
+        -------
+        None
+        """
 
         fig = plt.figure(figsize=(7, 4))
         ax = fig.add_subplot(111)
         for alternative in self.alternatives:
             ax.hist(
-                self.pertinence_index[alternative].values(),
+                list(self.pertinence_index[alternative].values()),
                 bins=int(self.n**0.5),
                 alpha=0.8,
                 label=alternative,
@@ -254,10 +405,16 @@ class MonteCarlo:
         return None
 
     def plot_ranking_distributions(self):
-        # Plot a confusion matrix of the results
+        """Plot the occurrence of each alternative in the ranking of each
+        simulation.
+
+        Returns
+        -------
+        None
+        """
 
         if not self.found_ranking:
-            self.find_ranking()
+            self.__find_ranking()
 
         fig = plt.figure(figsize=(7, 7))
         ax = fig.add_subplot(111)
@@ -288,7 +445,7 @@ class MonteCarlo:
                 ax.text(
                     j,
                     i,
-                    int(confusion_matrix[i, j]),
+                    str(int(confusion_matrix[i, j])),
                     ha="center",
                     va="center",
                     color="red",
@@ -301,7 +458,13 @@ class MonteCarlo:
         return None
 
     def plot_weights_set(self):
-        # Plot the distribution of input parameters (weights and matrix)
+        """Plot the distribution of the different weights. It is useful to
+        check if the weights are well distributed.
+
+        Returns
+        -------
+        None.
+        """
 
         fig = plt.figure(figsize=(7, 4))
         ax = fig.add_subplot(111)
@@ -322,7 +485,13 @@ class MonteCarlo:
         return None
 
     def plot_matrix_set(self):
-        # Plot the distribution of matrix_sets parameters
+        """Plot the distribution of matrix_sets parameters. For large matrices,
+        consider using the plot_normalized_set() method instead.
+
+        Returns
+        -------
+        None
+        """
 
         fig = plt.figure(figsize=(7, 4))
         ax = fig.add_subplot(111)
@@ -341,7 +510,12 @@ class MonteCarlo:
         return None
 
     def plot_normalized_set(self):
-        # Plot the distribution of normalized_matrix_sets parameters
+        """Plot the distribution of each element of normalized matrix.
+
+        Returns
+        -------
+        None
+        """
 
         fig = plt.figure(figsize=(7, 4 * int(self.n_alternatives)))
 
@@ -363,7 +537,19 @@ class MonteCarlo:
         return None
 
     def plot_confusion_matrix(self):
+        """Plots the confusion matrix crossing the different elements of the
+        matrix. Important to check whether there are correlation between the
+        elements of the matrix. The seaborn package is used to do the plot.
 
+        Returns
+        -------
+        None
+
+        Raises
+        ------
+        ImportError
+            seaborn is required to plot the confusion matrix
+        """
         try:
             import seaborn as sns
         except ImportError:
@@ -372,7 +558,7 @@ class MonteCarlo:
             )
 
         if not self.found_confusion_matrix:
-            self.find_confusion_matrix()
+            self.__find_confusion_matrix()
 
         labels = [
             f"a{i}{j}"
@@ -382,62 +568,10 @@ class MonteCarlo:
         sns.heatmap(
             self.confusion_matrix_cells,
             annot=False,
-            yticklabels=labels,
-            xticklabels=labels,
+            yticklabels=str(labels),
+            xticklabels=str(labels),
             cbar=True,
             linewidth=0.3,
         )
 
         return None
-
-    # def plot_stacked_rankings(self):
-    # Plot the distribution of rank of each alternative
-    # Disabled since the plot_ranking_distributions already provides the
-    # same information
-    # labels = ["A", "B", "C"]
-    # firsts = [
-    #     list(rank_results["A"].values()).count(1),
-    #     list(rank_results["B"].values()).count(1),
-    #     list(rank_results["C"].values()).count(1),
-    # ]
-    # seconds = [
-    #     list(rank_results["A"].values()).count(2),
-    #     list(rank_results["B"].values()).count(2),
-    #     list(rank_results["C"].values()).count(2),
-    # ]
-    # thirds = [
-    #     list(rank_results["A"].values()).count(3),
-    #     list(rank_results["B"].values()).count(3),
-    #     list(rank_results["C"].values()).count(3),
-    # ]
-
-    # fig = plt.figure(figsize=(7, 3))
-    # ax = fig.add_subplot(111)
-    # ax.bar(
-    #     labels,
-    #     thirds,
-    #     alpha=1,
-    #     label="3rd",
-    #     color="red",
-    # )
-    # ax.bar(
-    #     labels,
-    #     seconds,
-    #     alpha=1,
-    #     label="2nd",
-    #     bottom=thirds,
-    #     color="orange",
-    # )
-    # ax.bar(
-    #     labels,
-    #     firsts,
-    #     alpha=1,
-    #     label="1st",
-    #     bottom=[thirds[i] + seconds[i] for i in range(len(thirds))],
-    #     color="green",
-    # )
-    # ax.legend(loc="upper right")
-    # ax.set_title("Distribution of rank for each alternative")
-    # plt.show()
-
-    # return None

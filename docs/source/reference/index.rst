@@ -8,6 +8,6 @@ Navigate through the documentation of different classes available at mcdapy:
 
    App Class <app.rst>
    Pattern Class <pattern.rst>
-   Monte Carlo Class <monte_carlo.rst>
+   MonteCarlo Class <monte_carlo.rst>
 
 ..

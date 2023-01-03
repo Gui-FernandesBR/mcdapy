@@ -307,7 +307,20 @@ class Pattern:
         return None
 
     def plot_matrix(self, return_fig=False):
-        # Hey, I will document this later!
+        """Plot the weighted matrix of the alternatives and the criteria.
+
+        Parameters
+        ----------
+        return_fig : bool, optional
+            Whether to return the matplotlib figure at the end or not, by default
+            False. If True, the .show() method will not be called.
+
+        Returns
+        -------
+        None or fig, ax
+            If return_fig is True, the matplotlib figure and axis will be
+            returned. Otherwise, None will be returned.
+        """
 
         # Set the labels
         labels = [i for i in self.alternatives]
@@ -353,7 +366,21 @@ class Pattern:
         return fig, ax
 
     def plot_rank(self, return_fig=False) -> None:
-        # Hey, I will document this later!
+        """Plot the pertinence index of all the alternatives, sorted, in a
+        horizontal bar chart.
+
+        Parameters
+        ----------
+        return_fig : bool, optional
+            Whether to return the matplotlib figure at the end or not, by default
+            False. If True, the .show() method will not be called.
+
+        Returns
+        -------
+        None or fig, ax
+            If return_fig is True, the matplotlib figure and axis will be
+            returned. Otherwise, None will be returned.
+        """
 
         # Set the colors
         colors = plt.cm.Blues(np.linspace(0.3, 0.9, self.n_alternatives))
